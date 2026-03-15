@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Free Age Calculator Online | Calculate Age in Years Months Days</title>
+
+<meta name="description" content="Free online age calculator to calculate your exact age in years, months and days. Simple fast and responsive age calculator tool.">
+<meta name="keywords" content="age calculator, calculate age online, dob calculator, age calculator years months days">
+<meta name="author" content="Jitendra Dhadavi">
+
+<link rel="canonical" href="https://example.com/age-calculator">
+
+<meta property="og:title" content="Free Age Calculator Online">
+<meta property="og:description" content="Calculate your exact age instantly in years months and days.">
+<meta property="og:type" content="website">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+tailwind.config = { darkMode: "class" }
+</script>
+
+<style>
+.card-3d{perspective:1000px}
+.card-inner{transition:transform .5s;transform-style:preserve-3d}
+.card-3d:hover .card-inner{transform:rotateY(8deg) rotateX(6deg) scale(1.03)}
+
+.fade-in{animation:fadeIn .6s ease}
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1;transform:translateY(0)}
+}
+</style>
+
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"WebApplication",
+ "name":"Age Calculator",
+ "applicationCategory":"Utility",
+ "description":"Free online age calculator to calculate age in years months and days"
+}
+</script>
+
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white transition min-h-screen">
+
+<!-- Theme Toggle -->
+<div class="absolute top-6 right-6">
+<button id="themeToggle"
+class="bg-indigo-600 text-white px-4 py-2 rounded-lg flex gap-2 items-center hover:scale-105 transition">
+
+<span id="themeIcon">🌞</span>
+Toggle
+
+</button>
+</div>
+
+
+<div class="flex flex-col items-center justify-center pt-24 px-4">
+
+<div class="card-3d">
+
+<div class="card-inner bg-white dark:bg-gray-800 shadow-2xl rounded-2xl p-8 w-[360px] text-center">
+
+<h1 class="text-3xl font-bold mb-6">🎂 Age Calculator</h1>
+
+<input
+type="date"
+id="dob"
+class="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-lg p-3 mb-4 focus:ring-2 focus:ring-indigo-500 outline-none"
+/>
+
+<button
+onclick="calculateAge()"
+class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 hover:scale-105 transition">
+Calculate Age
+</button>
+
+<div id="result" class="mt-6 text-lg font-semibold"></div>
+
+</div>
+</div>
+
+
+<!-- SEO Content Section -->
+
+<section class="max-w-3xl mt-16 text-center">
+
+<h2 class="text-2xl font-bold mb-4">
+What is an Age Calculator?
+</h2>
+
+<p class="mb-6 text-gray-700 dark:text-gray-300">
+An age calculator is an online tool that helps you calculate your exact age from your date of birth. 
+It instantly calculates your age in years, months, and days.
+</p>
+
+
+<h2 class="text-2xl font-bold mb-4">
+How to Use the Age Calculator?
+</h2>
+
+<ul class="text-left list-disc pl-6 text-gray-700 dark:text-gray-300 space-y-2">
+
+<li>Select your date of birth.</li>
+<li>Click the calculate button.</li>
+<li>Instantly see your age in years months and days.</li>
+
+</ul>
+
+
+<h2 class="text-2xl font-bold mt-10 mb-4">
+Benefits of Using an Online Age Calculator
+</h2>
+
+<p class="text-gray-700 dark:text-gray-300">
+Using an online age calculator helps you quickly determine your exact age without manual calculation. 
+It is useful for official forms, school applications, and personal records.
+</p>
+
+</section>
+
+</div>
+
+
+<script>
+
+const toggleBtn=document.getElementById("themeToggle")
+const icon=document.getElementById("themeIcon")
+
+toggleBtn.addEventListener("click",()=>{
+
+document.documentElement.classList.toggle("dark")
+
+if(document.documentElement.classList.contains("dark")){
+icon.textContent="🌞"
+localStorage.setItem("theme","dark")
+}else{
+icon.textContent="🌙"
+localStorage.setItem("theme","light")
+}
+
+})
+
+
+(function(){
+
+const savedTheme=localStorage.getItem("theme")
+
+if(savedTheme==="light"){
+document.documentElement.classList.remove("dark")
+icon.textContent="🌙"
+}else{
+icon.textContent="🌞"
+}
+
+})()
+
+
+
+function calculateAge(){
+
+const dobValue=document.getElementById("dob").value
+
+if(!dobValue){
+document.getElementById("result").innerHTML=
+"<span class='text-red-500'>Please select DOB</span>"
+return
+}
+
+const dob=new Date(dobValue)
+const today=new Date()
+
+let years=today.getFullYear()-dob.getFullYear()
+let months=today.getMonth()-dob.getMonth()
+let days=today.getDate()-dob.getDate()
+
+if(days<0){
+months--
+const lastMonth=new Date(today.getFullYear(),today.getMonth(),0).getDate()
+days+=lastMonth
+}
+
+if(months<0){
+years--
+months+=12
+}
+
+const result=document.getElementById("result")
+
+result.classList.remove("fade-in")
+void result.offsetWidth
+result.classList.add("fade-in")
+
+result.innerHTML=`
+<div class="text-xl text-indigo-500">${years} Years</div>
+<div>${months} Months</div>
+<div>${days} Days</div>
+`
+
+}
+
+</script>
+
+</body>
+</html>
